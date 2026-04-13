@@ -43,7 +43,7 @@
       overflow: hidden;
     }
 
-    /* Warm magenta glow top-left — references billboard's hot-pink */
+    /* Warm magenta glow top-left, references billboard's hot-pink */
     .hero::before {
       content: '';
       position: absolute;
@@ -55,7 +55,7 @@
       );
       pointer-events: none;
     }
-    /* Cool teal glow bottom-right — references billboard's UofA teal */
+    /* Cool teal glow bottom-right, references billboard's UofA teal */
     .hero::after {
       content: '';
       position: absolute;
@@ -130,7 +130,7 @@
       letter-spacing: 0.01em;
       color: rgba(255,255,255,0.93);
     }
-    /* "UofA" in teal — exactly as on the billboard */
+    /* "UofA" in teal, matching the billboard */
     .hero__title .t-near .uofa {
       color: #2cc8c0;
     }
@@ -198,7 +198,7 @@
       color: #8a8fa4;
     }
 
-    /* ── Grid — always 2 columns ────────────────────────────────────────── */
+    /* ── Grid: always 2 columns ─────────────────────────────────────────── */
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -246,7 +246,7 @@
       transform: scale(1.06);
     }
 
-    /* Image gradient — darkens bottom for name legibility */
+    /* Image gradient: darkens bottom for name legibility */
     .card__img::after {
       content: '';
       position: absolute;
@@ -259,7 +259,7 @@
       );
     }
 
-    /* Distance badge — top right corner */
+    /* Distance badge: top right corner */
     .card__dist {
       position: absolute;
       top: 10px;
@@ -280,7 +280,7 @@
       white-space: nowrap;
     }
 
-    /* Status badge — top left corner */
+    /* Status badge: top left corner */
     .card__status {
       position: absolute;
       top: 10px;
@@ -433,7 +433,7 @@
   </h1>
 
   <p class="hero__sub">
-    Modern rental apartments by Westrich Pacific —&nbsp;all within walking distance of the University of Alberta campus.
+    Modern rental apartments by Westrich Pacific, all within walking distance of the University of Alberta campus.
   </p>
 
   <a class="hero__scroll" href="#properties" aria-label="Scroll to properties">
@@ -597,10 +597,12 @@
 
 <!-- ════════════════════════════════════════════════════ FOOTER ══ -->
 <footer>
-  <img
-    src="https://mlwittzd8zm2.i.optimole.com/w:512/h:185/q:mauto/f:best/https://belgraviaheights.com/wp-content/uploads/2025/11/Westrichlogo_White.png"
-    alt="Westrich Pacific Corp"
-  >
+  <a href="https://westrichpacific.com" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://mlwittzd8zm2.i.optimole.com/w:512/h:185/q:mauto/f:best/https://belgraviaheights.com/wp-content/uploads/2025/11/Westrichlogo_White.png"
+      alt="Westrich Pacific Corp"
+    >
+  </a>
   <p>&copy; 2026 Westrich Pacific Corp. All rights reserved.</p>
 </footer>
 
