@@ -1039,6 +1039,10 @@
       maxZoom: 19,
     }).addTo(map);
 
+    // Custom pane so UofA marker always renders above polylines
+    map.createPane('uofaPane');
+    map.getPane('uofaPane').style.zIndex = 650;
+
     // UofA main marker — native SVG circleMarker, zero anchor math, always exact
     L.circleMarker([config.coordinates.lat, config.coordinates.lng], {
       radius: 18,
@@ -1047,6 +1051,7 @@
       weight: 3,
       fillOpacity: 1,
       className: 'wg-main-marker',
+      pane: 'uofaPane',
     })
       .addTo(map)
       .bindPopup('<div class="wg-popup-content"><h4>University of Alberta</h4><p>Edmonton, AB</p></div>');
