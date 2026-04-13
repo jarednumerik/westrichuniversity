@@ -401,6 +401,22 @@
     }
     .card:hover .card__logo { opacity: 1; }
 
+    /* ── Showcase banner ────────────────────────────────────────────────── */
+    .showcase {
+      width: 100%;
+      height: 520px;
+      background: url('westrichpacific-university.jpeg') center / cover fixed;
+    }
+
+    /* Mobile: drop parallax, show full image at natural ratio */
+    @media (max-width: 768px) {
+      .showcase {
+        height: auto;
+        aspect-ratio: 1274 / 851;
+        background-attachment: scroll;
+      }
+    }
+
     /* ── Footer ─────────────────────────────────────────────────────────── */
     footer {
       background: #0c1a33;
@@ -635,6 +651,9 @@
 
   </div>
 </section>
+
+<!-- ══════════════════════════════════════════════════ SHOWCASE ══ -->
+<div class="showcase" role="img" aria-label="Westrich Pacific communities near the University of Alberta"></div>
 
 <!-- ════════════════════════════════════════════════════ FOOTER ══ -->
 <footer>
