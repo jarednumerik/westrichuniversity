@@ -961,8 +961,14 @@
   }
   .wg-main-marker {
     background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    width: 48px; height: 48px;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% 50% 50% 0 !important;
+    transform: rotate(-45deg) !important;
     animation: wg-pulse 2s infinite;
+  }
+  .wg-main-marker .wg-custom-marker-icon {
+    transform: rotate(45deg) !important;
   }
 </style>
 
