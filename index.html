@@ -276,13 +276,31 @@
       );
     }
 
-    /* Distance badge: top right corner */
-    .card__dist {
+    /* Badge row: sits across the top of the card image */
+    .card__badges {
       position: absolute;
       top: 10px;
+      left: 10px;
       right: 10px;
       z-index: 3;
-      background: rgba(44, 200, 192, 0.88);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    /* On mobile, stack badges vertically on the left */
+    @media (max-width: 640px) {
+      .card__badges {
+        flex-direction: column;
+        align-items: flex-start;
+        right: auto;
+      }
+    }
+
+    /* Shared badge styles */
+    .card__dist,
+    .card__status {
       backdrop-filter: blur(8px) saturate(180%);
       -webkit-backdrop-filter: blur(8px) saturate(180%);
       border: 1px solid rgba(255,255,255,0.22);
@@ -297,25 +315,15 @@
       white-space: nowrap;
     }
 
-    /* Status badge: top left corner */
+    /* Distance badge: teal */
+    .card__dist {
+      background: rgba(44, 200, 192, 0.88);
+    }
+
+    /* Status badge: blue */
     .card__status {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 3;
       background: rgba(0, 101, 165, 0.87);
-      backdrop-filter: blur(8px) saturate(180%);
-      -webkit-backdrop-filter: blur(8px) saturate(180%);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: #fff;
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      padding: 5px 9px;
-      border-radius: 100px;
-      line-height: 1;
-      white-space: nowrap;
+      border-color: rgba(255,255,255,0.18);
     }
 
     /* Project name overlaid on image (over gradient) */
@@ -517,8 +525,10 @@
           loading="eager"
           width="1200" height="900"
         >
-        <span class="card__status">Move in June 2026</span>
-        <span class="card__dist">300 m · 4 min walk</span>
+        <div class="card__badges">
+          <span class="card__status">Move in June 2026</span>
+          <span class="card__dist">300 m · 4 min walk</span>
+        </div>
         <div class="card__name">
           <span class="card__name-top">West</span>
           <span class="card__name-main">Windsor</span>
@@ -556,8 +566,10 @@
           loading="eager"
           width="1200" height="900"
         >
-        <span class="card__status">Move in Summer 2026</span>
-        <span class="card__dist">700 m · 9 min walk</span>
+        <div class="card__badges">
+          <span class="card__status">Move in Summer 2026</span>
+          <span class="card__dist">700 m · 9 min walk</span>
+        </div>
         <div class="card__name">
           <span class="card__name-top">Belgravia</span>
           <span class="card__name-main">Heights</span>
@@ -595,8 +607,10 @@
           loading="lazy"
           width="1200" height="800"
         >
-        <span class="card__status">Now Leasing</span>
-        <span class="card__dist">800 m · 10 min walk</span>
+        <div class="card__badges">
+          <span class="card__status">Now Leasing</span>
+          <span class="card__dist">800 m · 10 min walk</span>
+        </div>
         <div class="card__name">
           <span class="card__name-top">University</span>
           <span class="card__name-main">Heights</span>
@@ -634,8 +648,10 @@
           loading="lazy"
           width="1920" height="1078"
         >
-        <span class="card__status">Now Leasing</span>
-        <span class="card__dist">800 m · 10 min walk</span>
+        <div class="card__badges">
+          <span class="card__status">Now Leasing</span>
+          <span class="card__dist">800 m · 10 min walk</span>
+        </div>
         <div class="card__name">
           <span class="card__name-top">West</span>
           <span class="card__name-main">Garneau</span>
