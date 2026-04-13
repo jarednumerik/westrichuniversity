@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your New Home Near UofA | Westrich Pacific</title>
+  <meta name="description" content="Premium modern rental apartments near the University of Alberta. Studios to 3-bedrooms. Developed by Westrich Pacific Corp.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset ──────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Josefin Sans', system-ui, sans-serif;
+      background: #f5f2ee;
+      color: #0d1d35;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Hero ───────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      background: #0c1a33;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 72px 32px 56px;
+      overflow: hidden;
+    }
+
+    /* Warm magenta glow top-left — references billboard's hot-pink */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse 65% 55% at 18% 12%,
+        rgba(214, 36, 111, 0.28) 0%,
+        transparent 65%
+      );
+      pointer-events: none;
+    }
+    /* Cool teal glow bottom-right — references billboard's UofA teal */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse 55% 50% at 88% 90%,
+        rgba(44, 200, 192, 0.16) 0%,
+        transparent 60%
+      );
+      pointer-events: none;
+    }
+
+    .hero__logo {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 44px;
+    }
+    .hero__logo img {
+      height: 34px;
+      width: auto;
+    }
+
+    .hero__eyebrow {
+      position: relative;
+      z-index: 1;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 18px;
+    }
+
+    .hero__title {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 26px;
+      line-height: 1;
+    }
+    .hero__title .t-looking {
+      display: block;
+      font-size: clamp(0.78rem, 1.8vw, 1rem);
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.48);
+      margin-bottom: 0.25em;
+    }
+    .hero__title .t-main {
+      display: block;
+      font-size: clamp(3.2rem, 11vw, 8rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 0.9;
+      /* Magenta → coral gradient, mirrors the billboard headline */
+      background: linear-gradient(130deg, #e2357c 0%, #f26350 52%, #e2357c 100%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 7s linear infinite;
+      margin-bottom: 0.18em;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 220% 50%; }
+    }
+    .hero__title .t-near {
+      display: block;
+      font-size: clamp(1.6rem, 5.5vw, 3.8rem);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.93);
+    }
+    /* "UofA" in teal — exactly as on the billboard */
+    .hero__title .t-near .uofa {
+      color: #2cc8c0;
+    }
+
+    .hero__sub {
+      position: relative;
+      z-index: 1;
+      font-size: 0.88rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.42);
+      max-width: 360px;
+      line-height: 1.75;
+      margin-bottom: 52px;
+    }
+
+    .hero__scroll {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.28);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .hero__scroll:hover { color: rgba(255,255,255,0.55); }
+    .hero__scroll svg {
+      animation: bob 2.4s ease-in-out infinite;
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(0);    opacity: 0.28; }
+      50%       { transform: translateY(9px); opacity: 0.65; }
+    }
+
+    /* ── Properties ─────────────────────────────────────────────────────── */
+    .properties {
+      padding: 72px 18px 88px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .properties__header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .properties__header h2 {
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #0c1a33;
+      margin-bottom: 9px;
+    }
+    .properties__header p {
+      font-size: 0.82rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: #8a8fa4;
+    }
+
+    /* ── Grid — always 2 columns ────────────────────────────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    /* ── Card ───────────────────────────────────────────────────────────── */
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      box-shadow:
+        0 1px 2px rgba(12,26,51,0.06),
+        0 4px 20px rgba(12,26,51,0.07);
+      transition:
+        transform 0.30s cubic-bezier(.22,.8,.3,1),
+        box-shadow 0.30s ease;
+      will-change: transform;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 2px 4px rgba(12,26,51,0.08),
+        0 18px 44px rgba(12,26,51,0.16);
+    }
+
+    /* Image area */
+    .card__img {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+    .card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.55s cubic-bezier(.22,.8,.3,1);
+    }
+    .card:hover .card__img img {
+      transform: scale(1.06);
+    }
+
+    /* Image gradient — darkens bottom for name legibility */
+    .card__img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10,22,46,0.75) 0%,
+        rgba(10,22,46,0.08) 50%,
+        transparent 100%
+      );
+    }
+
+    /* Distance badge — top right corner */
+    .card__dist {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      background: rgba(44, 200, 192, 0.88);
+      backdrop-filter: blur(8px) saturate(180%);
+      -webkit-backdrop-filter: blur(8px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #fff;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 5px 9px;
+      border-radius: 100px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    /* Status badge — top left corner */
+    .card__status {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 3;
+      background: rgba(210, 34, 108, 0.87);
+      backdrop-filter: blur(8px) saturate(180%);
+      -webkit-backdrop-filter: blur(8px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 5px 9px;
+      border-radius: 100px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    /* Project name overlaid on image (over gradient) */
+    .card__name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 14px 16px 16px;
+    }
+    .card__name-top {
+      display: block;
+      font-size: clamp(0.5rem, 1.1vw, 0.62rem);
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.68);
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+    .card__name-main {
+      display: block;
+      font-size: clamp(1.15rem, 3vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.2);
+    }
+
+    /* Card body */
+    .card__body {
+      padding: 15px 17px 18px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card__hood {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #adb3c4;
+      margin-bottom: 5px;
+    }
+
+    .card__addr {
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+      font-size: clamp(0.68rem, 1.4vw, 0.8rem);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: #4a5568;
+      line-height: 1.35;
+      margin-bottom: 14px;
+    }
+    .card__addr svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: #d2226c;
+    }
+
+    .card__cta {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: #d2226c;
+      transition: gap 0.22s ease, color 0.22s ease;
+    }
+    .card:hover .card__cta          { gap: 10px; color: #a81856; }
+    .card:hover .card__cta svg      { transform: translateX(2px); }
+    .card__cta svg { transition: transform 0.22s ease; }
+
+    /* ── Footer ─────────────────────────────────────────────────────────── */
+    footer {
+      background: #0c1a33;
+      padding: 44px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
+    }
+    footer img {
+      height: 28px;
+      width: auto;
+      opacity: 0.82;
+    }
+    footer p {
+      font-size: 0.66rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── Responsive fine-tuning ─────────────────────────────────────────── */
+    @media (max-width: 420px) {
+      .grid { gap: 10px; }
+      .card__body { padding: 11px 13px 14px; }
+      .properties { padding: 52px 12px 64px; }
+      .hero { padding: 60px 20px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════ HERO ══ -->
+<section class="hero" id="top">
+
+  <div class="hero__logo">
+    <img
+      src="https://mlwittzd8zm2.i.optimole.com/w:512/h:185/q:mauto/f:best/https://belgraviaheights.com/wp-content/uploads/2025/11/Westrichlogo_White.png"
+      alt="Westrich Pacific Corp"
+    >
+  </div>
+
+  <p class="hero__eyebrow">Edmonton, Alberta</p>
+
+  <h1 class="hero__title">
+    <span class="t-looking">Looking for</span>
+    <span class="t-main">Your New Home</span>
+    <span class="t-near">Near <span class="uofa">UofA</span>?</span>
+  </h1>
+
+  <p class="hero__sub">
+    Modern rental apartments by Westrich Pacific —&nbsp;all within walking distance of the University of Alberta campus.
+  </p>
+
+  <a class="hero__scroll" href="#properties" aria-label="Scroll to properties">
+    <span>Explore Properties</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </a>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════ PROPERTIES ══ -->
+<section class="properties" id="properties">
+
+  <div class="properties__header">
+    <h2>Four Communities. One Great Location.</h2>
+    <p>Steps from campus &nbsp;·&nbsp; Pet friendly &nbsp;·&nbsp; Modern finishes &nbsp;·&nbsp; Now leasing</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- ── West Windsor ── -->
+    <a class="card" href="https://westwindsor.ca/" target="_blank" rel="noopener noreferrer">
+      <div class="card__img">
+        <img
+          src="https://mlwittzd8zm2.i.optimole.com/w:1200/h:900/q:mauto/f:best/https://westwindsor.ca/wp-content/uploads/2026/02/Exterior-Street-View-scaled.jpg"
+          alt="West Windsor apartments, Windsor Park Edmonton"
+          loading="eager"
+          width="1200" height="900"
+        >
+        <span class="card__status">Move in June 2026</span>
+        <span class="card__dist">300 m · 4 min walk</span>
+        <div class="card__name">
+          <span class="card__name-top">West</span>
+          <span class="card__name-main">Windsor</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <p class="card__hood">Windsor Park</p>
+        <p class="card__addr">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          8715 118 St NW, Edmonton
+        </p>
+        <span class="card__cta">
+          Explore Suites
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- ── Belgravia Heights ── -->
+    <a class="card" href="https://belgraviaheights.com/" target="_blank" rel="noopener noreferrer">
+      <div class="card__img">
+        <img
+          src="https://mlwittzd8zm2.i.optimole.com/w:1200/h:900/q:mauto/f:best/https://belgraviaheights.com/wp-content/uploads/2026/03/Belgravia-Heights-A-HD-2.jpg"
+          alt="Belgravia Heights apartments, Belgravia Edmonton"
+          loading="eager"
+          width="1200" height="900"
+        >
+        <span class="card__status">Move in Summer 2026</span>
+        <span class="card__dist">700 m · 9 min walk</span>
+        <div class="card__name">
+          <span class="card__name-top">Belgravia</span>
+          <span class="card__name-main">Heights</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <p class="card__hood">Belgravia</p>
+        <p class="card__addr">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          11430 76 Ave NW, Edmonton
+        </p>
+        <span class="card__cta">
+          Explore Suites
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- ── University Heights ── -->
+    <a class="card" href="https://university-heights.com/" target="_blank" rel="noopener noreferrer">
+      <div class="card__img">
+        <img
+          src="https://mlwittzd8zm2.i.optimole.com/cb:zSW-.feb/w:1200/h:800/q:mauto/f:best/https://university-heights.com/wp-content/uploads/2026/01/University-Heights-Apartments-2-2.jpg"
+          alt="University Heights apartments, McKernan Edmonton"
+          loading="lazy"
+          width="1200" height="800"
+        >
+        <span class="card__status">Now Leasing</span>
+        <span class="card__dist">800 m · 10 min walk</span>
+        <div class="card__name">
+          <span class="card__name-top">University</span>
+          <span class="card__name-main">Heights</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <p class="card__hood">McKernan / Belgravia</p>
+        <p class="card__addr">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          11450 80 Ave NW, Edmonton
+        </p>
+        <span class="card__cta">
+          Explore Suites
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- ── West Garneau ── -->
+    <a class="card" href="https://westgarneau.com/" target="_blank" rel="noopener noreferrer">
+      <div class="card__img">
+        <img
+          src="https://mlwittzd8zm2.i.optimole.com/w:1920/h:1078/q:mauto/f:best/https://westgarneau.com/wp-content/uploads/2025/11/DJI_0745-scaled.jpg"
+          alt="West Garneau apartments aerial view, Garneau Edmonton"
+          loading="lazy"
+          width="1920" height="1078"
+        >
+        <span class="card__status">Now Leasing</span>
+        <span class="card__dist">800 m · 10 min walk</span>
+        <div class="card__name">
+          <span class="card__name-top">West</span>
+          <span class="card__name-main">Garneau</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <p class="card__hood">Garneau</p>
+        <p class="card__addr">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          11041 86 Ave NW, Edmonton
+        </p>
+        <span class="card__cta">
+          Explore Suites
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════ FOOTER ══ -->
+<footer>
+  <img
+    src="https://mlwittzd8zm2.i.optimole.com/w:512/h:185/q:mauto/f:best/https://belgraviaheights.com/wp-content/uploads/2025/11/Westrichlogo_White.png"
+    alt="Westrich Pacific Corp"
+  >
+  <p>&copy; 2026 Westrich Pacific Corp. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
