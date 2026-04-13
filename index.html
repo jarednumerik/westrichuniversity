@@ -8,17 +8,25 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     /* ── Reset ──────────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Josefin Sans', system-ui, sans-serif;
+      font-family: 'Open Sans', system-ui, sans-serif;
       background: #f5f2ee;
       color: #0d1d35;
       -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .hero__eyebrow, .hero__title, .hero__scroll,
+    .card__name-top, .card__name-main,
+    .card__hood, .card__cta,
+    .properties__header h2 {
+      font-family: 'Montserrat', system-ui, sans-serif;
     }
 
     /* ── Hero ───────────────────────────────────────────────────────────── */
@@ -130,9 +138,10 @@
     .hero__sub {
       position: relative;
       z-index: 1;
+      font-family: 'Open Sans', system-ui, sans-serif;
       font-size: 0.88rem;
       font-weight: 300;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
       color: rgba(255,255,255,0.42);
       max-width: 360px;
       line-height: 1.75;
@@ -182,9 +191,10 @@
       margin-bottom: 9px;
     }
     .properties__header p {
+      font-family: 'Open Sans', system-ui, sans-serif;
       font-size: 0.82rem;
       font-weight: 300;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.03em;
       color: #8a8fa4;
     }
 
@@ -340,6 +350,7 @@
       display: flex;
       align-items: flex-start;
       gap: 5px;
+      font-family: 'Open Sans', system-ui, sans-serif;
       font-size: clamp(0.68rem, 1.4vw, 0.8rem);
       font-weight: 400;
       letter-spacing: 0.01em;
@@ -385,9 +396,10 @@
       opacity: 0.82;
     }
     footer p {
+      font-family: 'Open Sans', system-ui, sans-serif;
       font-size: 0.66rem;
       font-weight: 300;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.06em;
       color: rgba(255,255,255,0.3);
     }
 
