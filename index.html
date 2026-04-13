@@ -21,6 +21,7 @@
   <meta name="twitter:description" content="Premium modern rental apartments near the University of Alberta. Studios to 3-bedrooms. Developed by Westrich Pacific Corp.">
   <meta name="twitter:image"       content="https://university.westrichpacific.com/westrichpacific-university.jpeg">
 
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
@@ -695,6 +696,456 @@
 
   </div>
 </section>
+
+<!-- ════════════════════════════════════════════════════════ MAP ══ -->
+<section class="map-section">
+  <div class="map-section__inner">
+
+    <div class="map-section__header">
+      <h2>Four Communities. All Within Walking Distance.</h2>
+      <p>Click any property to locate it on the map</p>
+    </div>
+
+    <div class="wg-main-grid">
+      <div class="wg-map-wrapper">
+        <div id="wgMap" class="wg-map">
+          <div class="wg-loading">Loading map...</div>
+        </div>
+      </div>
+
+      <div class="wg-highlights-sidebar">
+        <div class="wg-highlights-list" id="wgHighlightsList"></div>
+        <div class="wg-info-card">
+          <p><strong>Developed by Westrich Pacific Corp.</strong> All four communities offer modern finishes, in-suite laundry, air conditioning, and pet-friendly suites — steps from the UofA campus, the River Valley, and Whyte Avenue.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ── Map section wrapper ─────────────────────────────────────────── */
+  .map-section {
+    background: #f5f2ee;
+    padding: 72px 18px 80px;
+  }
+  .map-section__inner {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .map-section__header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .map-section__header h2 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #0c1a33;
+    margin-bottom: 9px;
+  }
+  .map-section__header p {
+    font-family: 'Open Sans', system-ui, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: #8a8fa4;
+  }
+
+  /* ── Leaflet layout grid ─────────────────────────────────────────── */
+  .wg-main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .wg-main-grid {
+      grid-template-columns: 1fr 340px;
+      align-items: start;
+    }
+  }
+
+  /* ── Map wrapper ─────────────────────────────────────────────────── */
+  .wg-map-wrapper {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(12,26,51,0.07), 0 4px 20px rgba(12,26,51,0.07);
+    position: relative;
+  }
+  .wg-map-wrapper::before {
+    content: '';
+    display: block;
+    padding-top: 72%;
+  }
+  @media (min-width: 768px) {
+    .wg-map-wrapper::before { padding-top: 90%; }
+  }
+  .wg-map {
+    position: absolute;
+    top: 1rem; left: 1rem; right: 1rem; bottom: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .wg-loading {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Open Sans', sans-serif;
+    color: #8a8fa4;
+    font-size: 0.85rem;
+  }
+
+  /* ── Sidebar ─────────────────────────────────────────────────────── */
+  .wg-highlights-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .wg-highlights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* ── Project card in sidebar ─────────────────────────────────────── */
+  .wg-highlight-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 1rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 2px rgba(12,26,51,0.05);
+  }
+  .wg-highlight-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,101,165,0.12);
+    border-color: #0065a5;
+  }
+  .wg-highlight-card.active {
+    border-color: #0065a5;
+    background: linear-gradient(135deg, #eff6ff 0%, #e0f0fb 100%);
+    box-shadow: 0 4px 14px rgba(0,101,165,0.18);
+  }
+
+  .wg-highlight-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  .wg-highlight-name {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0c1a33;
+    line-height: 1.2;
+    transition: color 0.2s;
+  }
+  .wg-highlight-card.active .wg-highlight-name { color: #0065a5; }
+  .wg-highlight-pill {
+    background: rgba(44,200,192,0.15);
+    color: #1a9e98;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .wg-highlight-hood {
+    font-family: 'Open Sans', system-ui, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #adb3c4;
+    margin-bottom: 3px;
+  }
+  .wg-highlight-addr {
+    font-family: 'Open Sans', system-ui, sans-serif;
+    font-size: 0.75rem;
+    color: #4a5568;
+    margin-bottom: 0.7rem;
+  }
+  .wg-highlight-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #0065a5;
+    text-decoration: none;
+    transition: gap 0.2s ease, color 0.2s ease;
+  }
+  .wg-highlight-link:hover { gap: 7px; color: #004d80; }
+
+  /* ── Info card ───────────────────────────────────────────────────── */
+  .wg-info-card {
+    padding: 1rem 1.1rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #e8f4fb 100%);
+    border-radius: 12px;
+    border: 1px solid #c3dff2;
+    margin-top: 0.25rem;
+  }
+  .wg-info-card p {
+    font-family: 'Open Sans', system-ui, sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.65;
+    color: #64748b;
+    margin: 0;
+  }
+  .wg-info-card strong {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    color: #0065a5;
+    font-weight: 600;
+  }
+
+  /* ── Leaflet popup ───────────────────────────────────────────────── */
+  .leaflet-popup-content-wrapper {
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    font-family: 'Open Sans', system-ui, sans-serif;
+  }
+  .leaflet-popup-content { margin: 14px 16px; }
+  .wg-popup-content h4 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: #0c1a33;
+  }
+  .wg-popup-content p {
+    font-size: 0.78rem;
+    color: #64748b;
+    margin: 0 0 6px;
+  }
+  .wg-popup-content a {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #0065a5;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── Custom markers ──────────────────────────────────────────────── */
+  @keyframes wg-pulse {
+    0%, 100% { box-shadow: 0 4px 12px rgba(239,68,68,0.4), 0 0 0 0 rgba(239,68,68,0.6); }
+    50%       { box-shadow: 0 4px 12px rgba(239,68,68,0.4), 0 0 0 12px rgba(239,68,68,0); }
+  }
+  .wg-custom-marker {
+    background: #0065a5;
+    width: 36px; height: 36px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 3px solid #fff;
+    box-shadow: 0 3px 10px rgba(0,101,165,0.4);
+  }
+  .wg-custom-marker-icon {
+    transform: rotate(45deg);
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wg-main-marker {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    width: 48px; height: 48px;
+    animation: wg-pulse 2s infinite;
+  }
+</style>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  const config = {
+    projectName: 'University of Alberta',
+    address: 'Edmonton, AB',
+    coordinates: { lat: 53.5232, lng: -113.5263 },
+    primaryColor: '#0065a5',
+    highlights: [
+      {
+        id: 1,
+        name: 'West Windsor',
+        neighbourhood: 'Windsor Park',
+        address: '8715 118 St NW, Edmonton',
+        distance: '300 m · 4 min walk',
+        url: 'https://westwindsor.ca/',
+        coordinates: { lat: 53.52369, lng: -113.53393 },
+      },
+      {
+        id: 2,
+        name: 'Belgravia Heights',
+        neighbourhood: 'Belgravia',
+        address: '11430 76 Ave NW, Edmonton',
+        distance: '700 m · 9 min walk',
+        url: 'https://belgraviaheights.com/',
+        coordinates: { lat: 53.51217, lng: -113.52700 },
+      },
+      {
+        id: 3,
+        name: 'University Heights',
+        neighbourhood: 'McKernan / Belgravia',
+        address: '11450 80 Ave NW, Edmonton',
+        distance: '800 m · 10 min walk',
+        url: 'https://university-heights.com/',
+        coordinates: { lat: 53.51626, lng: -113.52856 },
+      },
+      {
+        id: 4,
+        name: 'West Garneau',
+        neighbourhood: 'Garneau',
+        address: '11041 86 Ave NW, Edmonton',
+        distance: '800 m · 10 min walk',
+        url: 'https://westgarneau.com/',
+        coordinates: { lat: 53.52100, lng: -113.51520 },
+      },
+    ],
+  };
+
+  function initMap() {
+    if (typeof L === 'undefined') { setTimeout(initMap, 100); return; }
+
+    const mapEl = document.getElementById('wgMap');
+    if (!mapEl) return;
+    mapEl.innerHTML = '';
+
+    // Compute bounds to fit UofA + all 4 projects
+    const allPoints = [
+      [config.coordinates.lat, config.coordinates.lng],
+      ...config.highlights.map(h => [h.coordinates.lat, h.coordinates.lng]),
+    ];
+    const bounds = L.latLngBounds(allPoints).pad(0.15);
+
+    const map = L.map('wgMap', {
+      zoomControl: true,
+      scrollWheelZoom: false,
+    }).fitBounds(bounds);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    // UofA main marker (pulsing red)
+    const mainIcon = L.divIcon({
+      className: 'wg-custom-marker wg-main-marker',
+      html: '<div class="wg-custom-marker-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.42A12.08 12.08 0 0118.82 17 11.95 11.95 0 0112 20.05 11.95 11.95 0 015.18 17a12.08 12.08 0 01.66-6.42L12 14z"/></svg></div>',
+      iconSize: [48, 48],
+      iconAnchor: [24, 48],
+    });
+    L.marker([config.coordinates.lat, config.coordinates.lng], { icon: mainIcon })
+      .addTo(map)
+      .bindPopup('<div class="wg-popup-content"><h4>University of Alberta</h4><p>Edmonton, AB</p></div>');
+
+    // Project markers + sidebar
+    const highlightMarkers = {};
+    let activeId = null;
+
+    config.highlights.forEach((h) => {
+      const icon = L.divIcon({
+        className: 'wg-custom-marker',
+        html: '<div class="wg-custom-marker-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>',
+        iconSize: [36, 36],
+        iconAnchor: [18, 36],
+      });
+
+      const marker = L.marker([h.coordinates.lat, h.coordinates.lng], { icon })
+        .addTo(map)
+        .bindPopup(`
+          <div class="wg-popup-content">
+            <h4>${h.name}</h4>
+            <p>${h.address}</p>
+            <p>${h.distance} from UofA</p>
+            <a href="${h.url}" target="_blank" rel="noopener noreferrer">View Project →</a>
+          </div>`);
+
+      // Connection line: UofA → project
+      const line = L.polyline(
+        [[config.coordinates.lat, config.coordinates.lng], [h.coordinates.lat, h.coordinates.lng]],
+        { color: config.primaryColor, weight: 2, opacity: 0.25, dashArray: '5, 9' }
+      ).addTo(map);
+
+      highlightMarkers[h.id] = { marker, line };
+    });
+
+    // Build sidebar cards
+    const list = document.getElementById('wgHighlightsList');
+    if (list) {
+      config.highlights.forEach((h) => {
+        const card = document.createElement('div');
+        card.className = 'wg-highlight-card';
+        card.setAttribute('data-id', h.id);
+        card.innerHTML = `
+          <div class="wg-highlight-top">
+            <span class="wg-highlight-name">${h.name}</span>
+            <span class="wg-highlight-pill">${h.distance}</span>
+          </div>
+          <div class="wg-highlight-hood">${h.neighbourhood}</div>
+          <div class="wg-highlight-addr">${h.address}</div>
+          <a class="wg-highlight-link" href="${h.url}" target="_blank" rel="noopener noreferrer">
+            View Project
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>`;
+
+        card.addEventListener('click', function () {
+          const id = parseInt(this.getAttribute('data-id'));
+          document.querySelectorAll('.wg-highlight-card').forEach(c => c.classList.remove('active'));
+
+          if (activeId === id) {
+            activeId = null;
+            resetAllLines();
+          } else {
+            this.classList.add('active');
+            activeId = id;
+            resetAllLines();
+            pulseOn(id);
+            const { marker } = highlightMarkers[id];
+            map.setView([h.coordinates.lat, h.coordinates.lng], 16, { animate: true, duration: 0.5 });
+            setTimeout(() => marker.openPopup(), 500);
+          }
+        });
+
+        // Stop link clicks from triggering the card map-fly
+        card.querySelector('.wg-highlight-link').addEventListener('click', e => e.stopPropagation());
+
+        list.appendChild(card);
+      });
+    }
+
+    function pulseOn(id) {
+      const { line } = highlightMarkers[id];
+      line.setStyle({ opacity: 0.75, weight: 3, dashArray: 'none' });
+    }
+    function resetAllLines() {
+      config.highlights.forEach(h => {
+        highlightMarkers[h.id].line.setStyle({ opacity: 0.25, weight: 2, dashArray: '5, 9' });
+      });
+    }
+
+    setTimeout(() => map.invalidateSize(), 100);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMap);
+  } else {
+    initMap();
+  }
+})();
+</script>
 
 <!-- ══════════════════════════════════════════════════ SHOWCASE ══ -->
 <div class="showcase" role="img" aria-label="Westrich Pacific communities near the University of Alberta"></div>
