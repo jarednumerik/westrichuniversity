@@ -364,8 +364,14 @@
       color: #d2226c;
     }
 
+    .card__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
     .card__cta {
-      align-self: flex-start;
       display: inline-flex;
       align-items: center;
       gap: 5px;
@@ -375,10 +381,23 @@
       text-transform: uppercase;
       color: #d2226c;
       transition: gap 0.22s ease, color 0.22s ease;
+      white-space: nowrap;
     }
     .card:hover .card__cta          { gap: 10px; color: #a81856; }
     .card:hover .card__cta svg      { transform: translateX(2px); }
     .card__cta svg { transition: transform 0.22s ease; }
+
+    .card__logo {
+      height: 28px;
+      width: auto;
+      max-width: 100px;
+      object-fit: contain;
+      object-position: right center;
+      flex-shrink: 0;
+      opacity: 0.85;
+      transition: opacity 0.22s ease;
+    }
+    .card:hover .card__logo { opacity: 1; }
 
     /* ── Footer ─────────────────────────────────────────────────────────── */
     footer {
@@ -480,13 +499,18 @@
           </svg>
           8715 118 St NW, Edmonton
         </p>
-        <span class="card__cta">
-          Explore Suites
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </span>
+        <div class="card__bottom">
+          <span class="card__cta">
+            Explore Suites
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+          <img class="card__logo"
+               src="https://mlwittzd8zm2.i.optimole.com/w:1200/h:318/q:mauto/f:best/https://westwindsor.ca/wp-content/uploads/2026/02/WestWindsor-Logo-Long-Black.jpg"
+               alt="West Windsor" loading="lazy">
+        </div>
       </div>
     </a>
 
@@ -514,13 +538,18 @@
           </svg>
           11430 76 Ave NW, Edmonton
         </p>
-        <span class="card__cta">
-          Explore Suites
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </span>
+        <div class="card__bottom">
+          <span class="card__cta">
+            Explore Suites
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+          <img class="card__logo"
+               src="https://mlwittzd8zm2.i.optimole.com/w:900/h:215/q:mauto/f:best/https://belgraviaheights.com/wp-content/uploads/2026/03/BelgraviaHeights-Logo-Color.png"
+               alt="Belgravia Heights" loading="lazy">
+        </div>
       </div>
     </a>
 
@@ -548,13 +577,18 @@
           </svg>
           11450 80 Ave NW, Edmonton
         </p>
-        <span class="card__cta">
-          Explore Suites
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </span>
+        <div class="card__bottom">
+          <span class="card__cta">
+            Explore Suites
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+          <img class="card__logo"
+               src="https://mlwittzd8zm2.i.optimole.com/cb:zSW-.feb/w:900/h:auto/q:mauto/f:best/https://university-heights.com/wp-content/uploads/2026/01/University_Heights_LogoB.webp"
+               alt="University Heights" loading="lazy">
+        </div>
       </div>
     </a>
 
@@ -582,13 +616,18 @@
           </svg>
           11041 86 Ave NW, Edmonton
         </p>
-        <span class="card__cta">
-          Explore Suites
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </span>
+        <div class="card__bottom">
+          <span class="card__cta">
+            Explore Suites
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+          <img class="card__logo"
+               src="https://mlwittzd8zm2.i.optimole.com/w:1019/h:507/q:mauto/f:best/https://westgarneau.com/wp-content/uploads/2025/11/WestGarneau_Logo_Colour.webp"
+               alt="West Garneau" loading="lazy">
+        </div>
       </div>
     </a>
 
