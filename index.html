@@ -942,10 +942,6 @@
   }
 
   /* ── Custom markers ──────────────────────────────────────────────── */
-  @keyframes wg-pulse {
-    0%, 100% { box-shadow: 0 4px 12px rgba(239,68,68,0.4), 0 0 0 0 rgba(239,68,68,0.6); }
-    50%       { box-shadow: 0 4px 12px rgba(239,68,68,0.4), 0 0 0 12px rgba(239,68,68,0); }
-  }
   .wg-custom-marker {
     background: #0065a5;
     width: 36px; height: 36px;
@@ -959,16 +955,22 @@
     width: 100%; height: 100%;
     display: flex; align-items: center; justify-content: center;
   }
-  .wg-main-marker {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    width: 48px !important;
-    height: 48px !important;
-    border-radius: 50% 50% 50% 0 !important;
-    transform: rotate(-45deg) !important;
-    animation: wg-pulse 2s infinite;
+  /* UofA main marker — SVG pin, no CSS rotation so Leaflet anchors correctly */
+  @keyframes wg-svg-pulse {
+    0%, 100% { filter: drop-shadow(0 3px 6px rgba(239,68,68,0.45)); }
+    50%       { filter: drop-shadow(0 3px 14px rgba(239,68,68,0.85)); }
   }
-  .wg-main-marker .wg-custom-marker-icon {
-    transform: rotate(45deg) !important;
+  .wg-main-marker {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 36px !important;
+    height: 48px !important;
+    border-radius: 0 !important;
+    transform: none !important;
+  }
+  .wg-main-marker svg {
+    animation: wg-svg-pulse 2s infinite;
   }
 </style>
 
@@ -1046,12 +1048,25 @@
       maxZoom: 19,
     }).addTo(map);
 
-    // UofA main marker (pulsing red)
+    // UofA main marker (pulsing red) — SVG pin pointing straight down, no CSS rotation
     const mainIcon = L.divIcon({
-      className: 'wg-custom-marker wg-main-marker',
-      html: '<div class="wg-custom-marker-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.42A12.08 12.08 0 0118.82 17 11.95 11.95 0 0112 20.05 11.95 11.95 0 015.18 17a12.08 12.08 0 01.66-6.42L12 14z"/></svg></div>',
-      iconSize: [48, 48],
-      iconAnchor: [24, 48],
+      className: 'wg-main-marker',
+      html: `<svg width="36" height="48" viewBox="0 0 36 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 0C8.06 0 0 8.06 0 18c0 9.94 18 30 18 30S36 27.94 36 18C36 8.06 27.94 0 18 0z"
+              fill="url(#rg)" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+        <defs>
+          <radialGradient id="rg" cx="38%" cy="32%" r="65%">
+            <stop offset="0%" stop-color="#f87171"/>
+            <stop offset="100%" stop-color="#b91c1c"/>
+          </radialGradient>
+        </defs>
+        <g transform="translate(18,17) scale(0.62) translate(-12,-12)" fill="white">
+          <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+          <path d="M12 14l6.16-3.42A12.08 12.08 0 0118.82 17 11.95 11.95 0 0112 20.05 11.95 11.95 0 015.18 17a12.08 12.08 0 01.66-6.42L12 14z"/>
+        </g>
+      </svg>`,
+      iconSize: [36, 48],
+      iconAnchor: [18, 48],
     });
     L.marker([config.coordinates.lat, config.coordinates.lng], { icon: mainIcon })
       .addTo(map)
